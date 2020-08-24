@@ -4,7 +4,7 @@ const { upload } = require('./upload')
 const documentsRouter = expressApp => {
     const documents = api.documents
 
-    expressApp.get('/api/documents/:id', documents.get)
+    expressApp.get('/api/documents/:id?', documents.get)
     expressApp.post('/api/documents', documents.post)
     expressApp.put('/api/documents/:id', upload.single('document'), documents.put.uploadDocument)
 }
