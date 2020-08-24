@@ -8,5 +8,11 @@ const getDocument = (documentId, callback) => {
     }, callback)
 }
 
+const getAllDocsOfUser = (user, callback) => {
+    const query = DocumentModel.find({ user })
+    wrapCallback((resolve, reject) => {
+        query.then(resolve, reject)
+    }, callback)
+}
 
-module.exports = { getDocument }
+module.exports = { getDocument, getAllDocsOfUser }
