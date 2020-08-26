@@ -26,7 +26,7 @@ const DocumentGridView = (props: DocumentGridViewProps) => {
     }
 
     const renderRow = (row: Array<DocumentModel>) => {
-        return <Row>{row.map(renderCol)}</Row>
+        return <Row key={row[0].id}>{row.map(renderCol)}</Row>
     }
 
     const renderAllDocuments = () => {
