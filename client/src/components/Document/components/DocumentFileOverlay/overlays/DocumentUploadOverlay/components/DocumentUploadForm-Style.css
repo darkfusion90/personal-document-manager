@@ -1,0 +1,8 @@
+.doc-file-input-group {
+    font-size: 0.8em;
+}
+
+.doc-file-input {
+    max-width: 100%;
+    object-fit: contain;
+}

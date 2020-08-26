@@ -1,22 +1,44 @@
-import React from 'react';
-import { Card } from 'react-bootstrap'
+import React, { useState } from 'react';
+
+import { DocumentInfoOverlay, DocumentUploadOverlay } from './overlays'
+
+import DocumentFileModel from '../../../../store/models/DocumentFileModel';
+import './DocumentFileOverlay-Style.css'
+import DocumentModel from '../../../../store/models/DocumentModel';
 
 interface DocumentFileOverlayProps {
-    show: boolean
-    onHideOverlay: React.MouseEventHandler
-    fileId: string
+    file: DocumentFileModel | null
+    document: DocumentModel
+    className: string
 }
 
-const DocumentFileOverlay = (props: DocumentFileOverlayProps) => {
-    if (props.show) {
-        return (
-            <Card.ImgOverlay onMouseLeave={props.onHideOverlay} className='mx-auto'>
-                Hello bro
-            </Card.ImgOverlay>
-        )
+enum OverlayState { info, upload }
+
+const isOverlayInfo = (overlay: OverlayState) => overlay === OverlayState.info
+
+const DocumentFileOverlay = ({ file, document, className }: DocumentFileOverlayProps) => {
+    const [overlayState, setOverlayState] = useState<OverlayState>(OverlayState.info)
+
+    const toggleOverlayState = () => {
+        const state = isOverlayInfo(overlayState) ? OverlayState.upload : OverlayState.info
+        setOverlayState(state)
     }
 
-    return null
+    if (isOverlayInfo(overlayState)) {
+        return <
+            DocumentInfoOverlay
+            file={file}
+            className={className}
+            toggleOverlayState={toggleOverlayState}
+        />
+    } else {
+        return <
+            DocumentUploadOverlay
+            document={document}
+            className={className}
+            toggleOverlayState={toggleOverlayState}
+        />
+    }
 }
 
 export default DocumentFileOverlay
