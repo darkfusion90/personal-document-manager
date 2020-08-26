@@ -1,33 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card } from 'react-bootstrap'
 
-import './DocumentFilePreview-Style.css'
+import api from '../../../../api'
+import DocumentFileModel from '../../../../store/models/DocumentFileModel'
+import DocumentModel from '../../../../store/models/DocumentModel'
+
 import DocumentFileOverlay from '../DocumentFileOverlay'
+import './DocumentFilePreview-Style.css'
 
 interface DocumentFilePreviewProps {
-    fileId: string
+    document: DocumentModel
 }
 
-const DocumentFilePreview = (props: DocumentFilePreviewProps) => {
-    const [isOverlayVisible, setOverlayVisibility] = useState(false)
+const DocumentFilePreview = ({ document }: DocumentFilePreviewProps) => {
+    const [file, setFile] = useState<DocumentFileModel | null>(null)
+    console.log({ file })
+    useEffect(() => {
+        async function fetchFile() {
+            setFile(await api.files.getFile(document.fileId))
+        }
 
-    const hideOverlay = () => setOverlayVisibility(false)
+        fetchFile()
+    }, [document])
 
-    const showOverlay = () => setOverlayVisibility(true)
+    const renderPreview = () => {
+        /* if (file) {
+            return <PdfEmbed src={api.files.getFileDownloadUrl(file.id)} />
+        } else { */
+        return <Card.Img src='http://localhost:4000/bro.jpg' />
+
+    }
 
     return (
-        <>
-            <Card.Img
-                src='http://127.0.0.1:5500/bro.jpg'
-                className={isOverlayVisible ? 'has-overlay' : ''}
-                onMouseEnter={showOverlay}
-            />
-            <DocumentFileOverlay 
-                fileId={props.fileId}
-                onHideOverlay={hideOverlay}
-                show={isOverlayVisible}
-            />
-        </>
+        <div className='doc-preview-container'>
+            {renderPreview()}
+            <DocumentFileOverlay file={file} document={document} className='doc-overlay' />
+        </div>
     )
 }
 
