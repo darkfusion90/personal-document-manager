@@ -14,7 +14,15 @@ const usersRouter = expressApp => {
 }
 
 const filesRouter = expressApp => {
-    expressApp.get('/api/files/:id', api.files.get)
+    const { files } = api
+    const { middlewares } = files
+
+    const setRoute = (route, handler) => {
+        expressApp.get(route, middlewares.fetchFile, handler)
+    }
+
+    setRoute('/api/files/:id', files.get)
+    setRoute('/api/files/:id/download', files.download)
 }
 
 const router = expressApp => {
