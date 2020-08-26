@@ -14,13 +14,12 @@ const DocumentView = (props: DocumentViewProps) => {
 
     return (
         <Card>
-            <DocumentFilePreview fileId={document.fileId} />
+            <DocumentFilePreview document={document} />
             <Card.Body>
                 <Card.Title>{document.name}</Card.Title>
                 <Card.Text>
                     Created on: {document.createdAt}
                 </Card.Text>
-                <Button variant="primary">Download</Button>
             </Card.Body>
         </Card>
     )
