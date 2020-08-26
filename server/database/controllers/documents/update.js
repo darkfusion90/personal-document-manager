@@ -11,8 +11,7 @@ const createQueryOpts = (documentId, fileId) => {
 
 const updateDocumentFileId = (documentId, fileId, callback) => {
     const { filters, options, update } = createQueryOpts(documentId, fileId)
-    const query = DocumentModel.findOneAndUpdate(filters, options, update)
-
+    const query = DocumentModel.findOneAndUpdate(filters, update, options)
     return wrapCallback((resolve, reject) => {
         query.then(resolve, reject)
     }, callback)
