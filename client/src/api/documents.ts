@@ -6,12 +6,13 @@ const kDocumentHomeUrl: string = '/api/documents'
 
 const getDocumentUrl = (docId: string): string => `${kDocumentHomeUrl}/${docId}`
 
-const getDocument = (docId: string): Promise<any> => {
-    const url: string = getDocumentUrl(docId)
-    return axios.get(url)
+const getDocument = async (docId: string): Promise<DocumentModel> => {
+    const response = await axios.get(getDocumentUrl(docId))
+
+    return docFromJson(response.data)
 }
 
-const getAllDocuments = async (): Promise<Array<DocumentModel>> => {
+const getAllDocuments = async (): Promise<DocumentModel[]> => {
     const response = await axios.get(kDocumentHomeUrl)
     const documentMeta: ArrayResponseData<DocumentModel> = response.data
     const docsListJson = documentMeta.data
@@ -33,4 +34,8 @@ const uploadDocumentFile = async (id: string, file: File): Promise<DocumentModel
     return docFromJson(response.data)
 }
 
-export default { getDocument, getAllDocuments, createDocument, uploadDocumentFile }
+const deleteDocument = async (id: string): Promise<any> => {
+    return axios.delete(getDocumentUrl(id))
+}
+
+export default { getDocument, getAllDocuments, createDocument, uploadDocumentFile, deleteDocument }
