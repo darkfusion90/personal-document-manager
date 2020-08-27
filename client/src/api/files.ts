@@ -15,4 +15,8 @@ const getFile = async (fileId: string): Promise<DocumentFileModel> => {
     return jsonToDocumentFile(response.data)
 }
 
-export default { getFile, getFileUrl, getFileDownloadUrl }
+const deleteFile = async (fileId: string): Promise<any> => {
+    return await axios.delete(getFileUrl(fileId))
+}
+
+export default { deleteFile, getFile, getFileUrl, getFileDownloadUrl }
