@@ -10,6 +10,12 @@ import {
     insertBulkDocumentAction
 } from './types'
 
+export const createDocument = (name: string): AppThunk => async (dispatch: AppThunkDispatch<DocumentAction>) => {
+    const document = await documentsApi.createDocument(name)
+
+    dispatch(insertDocumentAction(document))
+}
+
 export const getDocument = (id: string): AppThunk => async (dispatch: AppThunkDispatch<DocumentAction>) => {
     const document = await documentsApi.getDocument(id)
 
