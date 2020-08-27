@@ -1,7 +1,7 @@
 import DocumentModel from '../models/DocumentModel';
 import IdMap from '../utils/IdMap';
 
-import escapeUndefined from '../../utils/EscapeNull';
+import escapeUndefined from '../../utils/EscapeUndefined';
 
 export default class DocumentsState {
     documents: IdMap<DocumentModel>

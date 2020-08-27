@@ -1,5 +1,5 @@
 import UserModel from "../models/UserModel";
-import escapeUndefined from "../../utils/EscapeNull";
+import escapeUndefined from "../../utils/EscapeUndefined";
 
 export default class AccountState {
     user: UserModel | null;

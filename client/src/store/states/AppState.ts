@@ -1,6 +1,6 @@
 import DocumentsState from "./DocumentsState";
 import AccountState from "./AccountState";
-import escapeUndefined from "../../utils/EscapeNull";
+import escapeUndefined from "../../utils/EscapeUndefined";
 import DocumentFilesState from "./DocumentFilesState";
 
 export default class AppState {

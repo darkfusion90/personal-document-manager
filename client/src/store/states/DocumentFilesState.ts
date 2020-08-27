@@ -1,7 +1,7 @@
 import DocumentFileModel from '../models/DocumentFileModel';
 import IdMap from '../utils/IdMap';
 
-import escapeUndefined from '../../utils/EscapeNull';
+import escapeUndefined from '../../utils/EscapeUndefined';
 
 export default class DocumentFilesState {
     files: IdMap<DocumentFileModel>

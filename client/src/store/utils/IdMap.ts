@@ -1,4 +1,4 @@
-import escapeUndefined from "../../utils/EscapeNull"
+import escapeUndefined from "../../utils/EscapeUndefined"
 
 interface IdObject {
     id: string
