@@ -11,6 +11,7 @@ const documentsRouter = expressApp => {
 
 const usersRouter = expressApp => {
     expressApp.get('/api/users/:id?', api.users.get)
+    expressApp.get('/api/login_status', api.users.loginStatus)
 }
 
 const filesRouter = expressApp => {
