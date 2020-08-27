@@ -1,5 +1,5 @@
 import React from 'react'
-import DocumentGrid from './components/DocumentGrid'
+import DocumentGrid from '../components/DocumentGrid'
 
 import './App.css'
 
