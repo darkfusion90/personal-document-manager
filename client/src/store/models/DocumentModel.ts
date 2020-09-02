@@ -1,6 +1,6 @@
 export default interface DocumentModel {
     id: string
-    fileId: string
+    fileId: string | undefined
     name: string
     user: string
     createdAt: Date

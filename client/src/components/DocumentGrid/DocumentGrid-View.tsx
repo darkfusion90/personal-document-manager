@@ -9,7 +9,7 @@ import { getChunks } from '../../utils/ArrayUtils'
 interface DocumentGridViewProps {
     documents: Array<DocumentModel>
     isLoading: boolean
-    onCreateDocumentButtonClick: React.MouseEventHandler
+    onCreateDocument: React.MouseEventHandler
 }
 
 function gridifyComponents<T>(array: Array<T>): Array<Array<T>> {
@@ -20,7 +20,7 @@ const DocumentGridView = (props: DocumentGridViewProps) => {
     const renderCol = (document: DocumentModel) => {
         return (
             <Col lg={3} md={4} sm={6} xs={12} key={document.id}>
-                <DocumentView document={document} />
+                <DocumentView documentId={document.id} />
             </Col>
         )
     }
@@ -49,7 +49,7 @@ const DocumentGridView = (props: DocumentGridViewProps) => {
             <Container fluid>
                 {renderDocumentContent()}
             </Container>
-            <Button variant='primary' onClick={props.onCreateDocumentButtonClick}>
+            <Button variant='primary' onClick={props.onCreateDocument}>
                 Create Document
             </Button>
         </>

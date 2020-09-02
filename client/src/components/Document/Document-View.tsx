@@ -1,16 +1,19 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import { Container, Card } from 'react-bootstrap'
 
 import DocumentModel from '../../store/models/DocumentModel'
 import { DocumentFilePreview } from './components'
 
 interface DocumentViewProps {
-    document: DocumentModel
+    document: DocumentModel | undefined
 }
 
 const DocumentView = (props: DocumentViewProps) => {
     const { document } = props
+
+    if (typeof document === "undefined") {
+        return <Container>Loading Document</Container>
+    }
 
     return (
         <Card>

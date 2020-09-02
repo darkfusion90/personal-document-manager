@@ -5,22 +5,22 @@ export const INSERT_BULK_DOCUMENT_ACTION = 'INSERT_BULK_DOCUMENT_ACTION'
 export const UPDATE_DOCUMENT_ACTION = 'UPDATE_DOCUMENT_ACTION'
 export const DELETE_DOCUMENT_ACTION = 'DELETE_DOCUMENT_ACTION'
 
-interface InsertDocumentAction {
+export interface InsertDocumentAction {
     type: typeof INSERT_DOCUMENT_ACTION
     payload: DocumentModel
 }
 
-interface DeleteDocumentAction {
+export interface DeleteDocumentAction {
     type: typeof DELETE_DOCUMENT_ACTION
     payload: DocumentModel
 }
 
-interface UpdateDocumentAction {
+export interface UpdateDocumentAction {
     type: typeof UPDATE_DOCUMENT_ACTION
     payload: DocumentModel
 }
 
-interface InsertBulkDocumentAction {
+export interface InsertBulkDocumentAction {
     type: typeof INSERT_BULK_DOCUMENT_ACTION
     payload: DocumentModel[]
 }

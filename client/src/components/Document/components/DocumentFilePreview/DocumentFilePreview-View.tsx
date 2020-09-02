@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card } from 'react-bootstrap'
 
-import api from '../../../../api'
 import DocumentFileModel from '../../../../store/models/DocumentFileModel'
 import DocumentModel from '../../../../store/models/DocumentModel'
 
@@ -13,11 +12,11 @@ interface DocumentFilePreviewProps {
 }
 
 const DocumentFilePreview = ({ document }: DocumentFilePreviewProps) => {
-    const [file, setFile] = useState<DocumentFileModel | null>(null)
+    const [file] = useState<DocumentFileModel | null>(null)
     console.log({ file })
     useEffect(() => {
         async function fetchFile() {
-            setFile(await api.files.getFile(document.fileId))
+            //setFile(await api.files.getFile(document.fileId || ''))
         }
 
         fetchFile()

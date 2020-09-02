@@ -8,9 +8,10 @@ import {
 } from "../actions/documents-actions/types"
 import DocumentModel from "../models/DocumentModel"
 import IdMap from "../utils/IdMap"
+import { documentMapSelector } from "../selectors/document-selectors"
 
 const insertDocument = (state: DocumentsState, document: DocumentModel): DocumentsState => {
-    const documents = state.documents
+    const documents = documentMapSelector(state)
     documents.put(document)
 
     return state.copy(documents.copy())
@@ -22,7 +23,7 @@ const insertDocumentsBulk = (state: DocumentsState, documents: DocumentModel[]):
 }
 
 const deleteDocument = (state: DocumentsState, document: DocumentModel): DocumentsState => {
-    const documents = state.documents
+    const documents =  documentMapSelector(state)
     documents.remove(document)
 
     return state.copy(documents.copy())

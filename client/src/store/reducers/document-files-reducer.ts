@@ -6,16 +6,17 @@ import {
     DELETE_DOCUMENT_FILE_ACTION
 } from '../actions/document-files-actions/types'
 import DocumentFileModel from '../models/DocumentFileModel'
+import { documentFileMapSelector } from '../selectors/document-file-selectors'
 
 const insertDocumentFile = (state: DocumentFilesState, file: DocumentFileModel): DocumentFilesState => {
-    const files = state.files
+    const files = documentFileMapSelector(state)
     files.put(file)
 
     return state.copy(files.copy())
 }
 
 const deleteDocumentFile = (state: DocumentFilesState, file: DocumentFileModel): DocumentFilesState => {
-    const files = state.files
+    const files = documentFileMapSelector(state)
     files.remove(file)
 
     return state.copy(files.copy())

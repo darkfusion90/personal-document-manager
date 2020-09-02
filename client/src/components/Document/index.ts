@@ -1,3 +1,3 @@
-import DocumentView from "./Document-View";
+import DocumentView from "./Document-Redux";
 
 export default DocumentView

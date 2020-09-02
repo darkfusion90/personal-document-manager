@@ -1,41 +1,43 @@
-import escapeUndefined from "../../utils/EscapeUndefined"
-
-interface IdObject {
+interface ObjectWithId {
     id: string
 }
 
-class IdMap<T extends IdObject>{
-    map: Map<string, T>
+class IdMap<T extends ObjectWithId>{
+    map: {}
 
-    static empty<T extends IdObject>() {
+    constructor(map: {} = {}) {
+        this.map = map
+    }
+
+    static empty<T extends ObjectWithId>() {
         return new IdMap<T>()
     }
 
-    static fromList<T extends IdObject>(list: T[]) {
-        const map = new Map<string, T>()
+    static fromList<T extends ObjectWithId>(list: T[]) {
+        const map = {}
         for (let item of list) {
-            map.set(item.id, item)
+            map[item.id] = item
         }
 
         return new IdMap<T>(map)
     }
 
-    constructor(map: Map<string, T> = new Map<string, T>()) {
-        this.map = map
-    }
-
-    get = (id: string): T | undefined => this.map.get(id)
+    get = (id: string): T | undefined => this.map[id]
 
     put(value: T) {
-        this.map.set(value.id, value)
+        this.map[value.id] = value
     }
 
     remove(value: T) {
-        this.map.delete(value.id)
+        delete this.map[value.id]
     }
 
-    copy(map?: Map<string, T>): IdMap<T> {
-        return new IdMap({ ...escapeUndefined(map, () => this.map) })
+    copy(): IdMap<T> {
+        return new IdMap({ ...this.map })
+    }
+
+    values(): T[] {
+        return Object.values(this.map)
     }
 }
 

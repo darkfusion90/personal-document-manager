@@ -15,13 +15,13 @@ export const getFile = (id: string): AppThunk => async (dispatch: AppThunkDispat
     dispatch(insertDocumentFileAction(documentFile))
 }
 
-export const updateDocument = (documentFile: DocumentFileModel): AppThunk => async (dispatch: AppThunkDispatch<DocumentFileAction>) => {
+export const updateFile = (documentFile: DocumentFileModel): AppThunk => async (dispatch: AppThunkDispatch<DocumentFileAction>) => {
     const updatedDocument = await filesApi.getFile(documentFile.id)
 
     dispatch(updateDocumentFileAction(updatedDocument))
 }
 
-export const deleteDocument = (documentFile: DocumentFileModel): AppThunk => async (dispatch: AppThunkDispatch<DocumentFileAction>) => {
+export const deleteFile = (documentFile: DocumentFileModel): AppThunk => async (dispatch: AppThunkDispatch<DocumentFileAction>) => {
     await filesApi.deleteFile(documentFile.id)
 
     dispatch(deleteDocumentFileAction(documentFile))

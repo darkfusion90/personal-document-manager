@@ -12,7 +12,13 @@ export default class AccountState {
 
     hasUser = (): boolean => this.user !== null
 
-    isRegistered = (): boolean | undefined => this.hasUser() && this.user?.isRegistered
+    isRegistered = (): boolean => {
+        if (this.user === null) {
+            return false
+        }
+
+        return this.user.isRegistered
+    }
 
     copy(user?: UserModel | null, isLoggedIn?: boolean) {
         const userEscape = escapeUndefined<UserModel | null>(user, () => this.user)

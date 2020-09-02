@@ -1,3 +1,3 @@
-import DocumentGrid from "./DocumentGrid-Container";
+import DocumentGrid from "./DocumentGrid-Redux";
 
 export default DocumentGrid
