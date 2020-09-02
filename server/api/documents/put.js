@@ -1,16 +1,22 @@
-const { updateDocumentFileId } = require('../../database/controllers/documents')
+const { getDocument } = require('../../database/controllers/documents')
+const { updateFileRaw } = require('../../database/controllers/files')
 
-const put = (req, res) => {
+const put = async (req, res) => {
     const docId = req.params.id
-    const fileId = resolveDocumentFileId(req)
+    // TODO: Use middleware like in fetchFile for files api
+    const document = await getDocument(docId)
 
-    if (fileId) {
-        updateDocumentFileId(docId, fileId, (err, updatedDoc) => {
+    const docFileId = document.fileId
+    const rawFileId = resolveDocumentFileId(req)
+
+    if (rawFileId) {
+        updateFileRaw(docFileId, rawFileId, (err) => {
+            console.log({ err })
             if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(updatedDoc)
+                return res.status(500).json(err)
             }
+
+            res.json(document)
         })
     } else {
         res.json({})
@@ -23,4 +29,4 @@ const resolveDocumentFileId = req => {
     }
 }
 
-module.exports = { uploadDocument: put }
+module.exports = put

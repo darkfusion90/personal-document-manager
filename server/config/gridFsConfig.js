@@ -1,3 +1,8 @@
 module.exports = {
-    bucketName: 'documents'
+    documentFiles: {
+        bucketName: 'documents'
+    },
+    thumbnails: {
+        bucketName: 'thumbs'
+    }
 }

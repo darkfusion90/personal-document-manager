@@ -1,7 +1,14 @@
-const { gridFs } = require('../../upload')
+const { getFileStream, getThumbnailStream } = require('../../database/controllers/gridfs-buckets')
 
-const download = (req, res) => {
-    gridFs.openDownloadStream(req.fetchedFile._id).pipe(res)
+const downloadRaw = (req, res) => {
+    getFileStream(req.fetchedFile.raw).pipe(res)
 }
 
-module.exports = download
+const downloadThumbnail = (req, res) => {
+    getThumbnailStream(req.fetchedFile.thumbnail).pipe(res)
+}
+
+module.exports = {
+    raw: downloadRaw,
+    thumbnail: downloadThumbnail
+}

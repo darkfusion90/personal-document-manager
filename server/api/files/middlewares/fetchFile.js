@@ -1,7 +1,5 @@
-const { gridFs } = require('../../../upload')
 const mongoose = require('mongoose')
-
-const makeId = id => new mongoose.Types.ObjectId(id)
+const { getDocumentFile } = require('../../../database/controllers/files')
 
 const fileNotFound = res => res.status(404).json({ message: 'File not found' })
 
@@ -12,17 +10,15 @@ const fetchFile = (req, res, next) => {
         return fileNotFound(res)
     }
 
-    const fileId = makeId(rawFileId)
-    gridFs.find({ _id: fileId }).toArray((err, files) => {
+    getDocumentFile(rawFileId, (err, file) => {
         if (err) {
             return res.status(500).json(err)
         }
-        console.log({ files })
-        if (!files[0] || files.length === 0) {
+        if (!file) {
             return fileNotFound(res)
         }
 
-        req.fetchedFile = files[0]
+        req.fetchedFile = file
         next()
     })
 }

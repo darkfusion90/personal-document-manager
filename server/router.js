@@ -1,12 +1,12 @@
 const api = require('./api')
-const { upload } = require('./upload')
+const { uploadDocument } = require('./upload')
 
 const documentsRouter = expressApp => {
     const documents = api.documents
 
     expressApp.get('/api/documents/:id?', documents.get)
     expressApp.post('/api/documents', documents.post)
-    expressApp.put('/api/documents/:id', upload.single('document'), documents.put.uploadDocument)
+    expressApp.put('/api/documents/:id', uploadDocument, documents.put)
 }
 
 const usersRouter = expressApp => {
@@ -15,15 +15,19 @@ const usersRouter = expressApp => {
 }
 
 const filesRouter = expressApp => {
-    const { files } = api
-    const { middlewares } = files
+    const {
+        files: {
+            get,
+            download,
+            middlewares: { fetchFile }
+        }
+    } = api
 
-    const setRoute = (route, handler) => {
-        expressApp.get(route, middlewares.fetchFile, handler)
-    }
-
-    setRoute('/api/files/:id', files.get)
-    setRoute('/api/files/:id/download', files.download)
+    expressApp.get('/api/files/:id', fetchFile, get.file)
+    expressApp.get('/api/files/:id/raw', fetchFile, get.raw)
+    expressApp.get('/api/files/:id/thumbnail', fetchFile, get.thumbnail)
+    expressApp.get('/api/files/:id/raw/download', fetchFile, download.raw)
+    expressApp.get('/api/files/:id/thumbnail/download', fetchFile, download.thumbnail)
 }
 
 const router = expressApp => {

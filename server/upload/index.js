@@ -5,9 +5,10 @@ const config = require('../config/gridFsConfig')
 
 const storage = new GridFsStorage({
     db: mongoose.connection.db,
-    file: () => config
+    file: () => config.documentFiles
 })
 const upload = multer({ storage })
-const gridFs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, config)
 
-module.exports = { upload, gridFs }
+const uploadDocument = upload.single('document')
+
+module.exports = { upload, uploadDocument }
